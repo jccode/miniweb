@@ -4,9 +4,11 @@ import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import tk.jcchen.miniweb.core.domain.BaseEntity;
+
 @Entity
 public class User extends BaseEntity {
-
+	
 	@NotEmpty
 	private String name;
 
@@ -14,6 +16,8 @@ public class User extends BaseEntity {
 	private String password;
 
 	private String email;
+	
+	private String image;
 
 	public String getName() {
 		return name;
@@ -39,10 +43,18 @@ public class User extends BaseEntity {
 		this.email = email;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	@Override
 	public String toString() {
-		return "User [name=" + name + ", password=" + password + ", email="
-				+ email + "]";
+		return "User [id=" + getId() + ", name=" + name + ", password=" + password + ", email="
+				+ email + ", image=" + image + "]";
 	}
 
 }

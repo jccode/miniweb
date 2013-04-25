@@ -11,8 +11,9 @@
 		<java.version>1.6</java.version>
 		<junit.version>4.8.1</junit.version>
 		<spring.version>3.2.0.RELEASE</spring.version>
-		<hibernate.version>4.1.4.Final</hibernate.version>
+		<hibernate.version>4.1.5.Final</hibernate.version>
 		<slf4j.version>1.6.1</slf4j.version>
+		<hsqldb.version>2.2.9</hsqldb.version>
 	</properties>
 	<dependencies>
 		<!-- jUnit -->
@@ -142,7 +143,7 @@
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
-			<version>2.2.8</version>
+			<version>${hsqldb.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		

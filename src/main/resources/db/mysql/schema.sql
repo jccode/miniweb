@@ -1,8 +1,9 @@
 
 CREATE TABLE IF NOT EXISTS vets (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(30),
+  name VARCHAR(60),
   password VARCHAR(30),
-  email	VARCHAR(30), 
+  email	VARCHAR(60), 
+  image VARCHAR(60), 
   INDEX(name)
 ) engine=InnoDB;

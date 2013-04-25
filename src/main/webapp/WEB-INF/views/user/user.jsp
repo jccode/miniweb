@@ -12,6 +12,10 @@
 				/*padding: 50px 0px;*/
 				/*background-color: #f5f5f5;*/
 			}
+
+			#editForm {
+				margin-bottom: 0px;
+			}
 		</style>
 	</head>
 	<body>
@@ -28,208 +32,262 @@
 						</div>
 					</div>
 				</div>
-				<div id="groupList" class="common-list group-list">
+				<div id="userList" class="common-list group-list">
 					<ul>
-						<li>
+						<c:forEach items="${users }" var="user">
+						<li id="item_${user.id }">
 							<div class="list-item">
 								<div class="pic">
-									<img src="assert/img/t1.jpg" alt="小三">
+									<img id="img_${user.id }" src="${webRoot}/${user.image}" alt="${user.name }">
 								</div>
 								<div class="btns hide">
-									<i class="icon2-edit"></i>
+									<i class="icon2-edit" value="${user.id }"></i>
 								</div>
 								<div class="text">
-									<p class="header">小三</p>
-									<p class="detail">xiaoshang@163.com</p>
+									<div class="view">
+										<p class="header">${user.name }</p>
+										<p class="detail">${user.email }</p>
+									</div>
 								</div>
 							</div>
 						</li>
-						<li>
-							<div class="list-item">
-								<div class="pic">
-									<img src="assert/img/t2.jpg" alt="小四">
-								</div>
-								<div class="btns hide">
-									<i class="icon2-ok"></i>
-								</div>
-								<div class="text">
-									<p class="header">小四</p>
-									<p class="detail">xiaoshi@sina.com</p>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="list-item">
-								<div class="pic">
-									<img src="assert/img/t5.jpg" alt="小五">
-								</div>
-								<div class="btns hide">
-									<i class="icon2-remove"></i>
-								</div>
-								<div class="text">
-									<p class="header">小五</p>
-									<p class="detail">xiaowu@qq.com</p>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="list-item">
-								<div class="pic">
-									<img src="assert/img/t3.jpg" alt="小一">
-								</div>
-								<div class="btns hide">
-									<i class="icon2-ok"></i>
-								</div>
-								<div class="text">
-									<p class="header">小一</p>
-									<p class="detail">xiaoyi@yahoo.com</p>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="list-item">
-								<div class="pic">
-									<img src="assert/img/t4.jpg" alt="小二">
-								</div>
-								<div class="btns hide">
-									<i class="icon2-ok"></i>
-								</div>
-								<div class="text">
-									<p class="header">小二</p>
-									<p class="detail">xiaoer@gmail.com</p>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="list-item">
-								<div class="pic">
-									<img src="assert/img/avatar.jpg" alt="大三">
-								</div>
-								<div class="btns hide">
-									<i class="icon2-ok"></i>
-								</div>
-								<div class="text">
-									<p class="header">大三</p>
-									<p class="detail">dashang@163.com</p>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="list-item">
-								<div class="pic">
-									<img src="assert/img/qq.png" alt="QQ">
-								</div>
-								<div class="btns hide">
-									<i class="icon2-ok"></i>
-								</div>
-								<div class="text">
-									<p class="header">QQ</p>
-									<p class="detail">qq@qq.com</p>
-								</div>
-							</div>
-						</li>
+						</c:forEach>
 					</ul>
 				</div>
 				<div id="add_panel" class="panel-bottom hide">
-					<form action="" class="group-list">
+					<form id="userForm" name="user" action="${webRoot}/user" class="group-list" method="POST" enctype="multipart/form-data">
 						<div class="pic">
-							<div class="img-wapper"><img src=""></div>
+							<div class="img-wapper"><img id="image-preview" src="" data-toggle="tooltip" data-placement="right" data-original-title="图片不能为空" data-validate="imgValid();"></div>
 							<div class="img-tips hide">点击上传图片</div>
-							<input type="file" id="group-upload" name="file" class="hide">
+							<input type="file" id="file-upload" name="file" class="hide">
 						</div>
 						<div class="btns">
-							<button class="btn btn-primary btn-large">保存</button>
+							<button class="btn btn-primary btn-large" id="btn_save_group">保存</button>
 						</div>
 						<div class="text">
 							<div class="row-fluid">
 								<div class="span5">
-									
 									<div class="control-group control-group-small">
 										<label for="" class="control-label">用户名</label>
-										<div class="controls"><input type="text" name="groupName" class="input-block-level"></div>
+										<div class="controls"><input type="text" id="userName" name="name" class="input-block-level" data-toggle="tooltip" data-original-title="用户名不能为空" data-validate></div>
 									</div>
-
 								</div>
 								<div class="span2"></div>
 								<div class="span5">
-									
 									<div class="control-group control-group-small">
 										<label for="" class="control-label">密码</label>
-										<div class="controls"><input type="text" name="groupName" class="input-block-level"></div>
+										<div class="controls"><input type="text" id="password" name="password" class="input-block-level" data-toggle="tooltip" data-original-title="密码不能为空" data-validate></div>
 									</div>
-
 								</div>
 							</div>
 
 							<div class="control-group control-group-small">
 								<label for="" class="control-label">email</label>
 								<div class="controls">
-									<input type="text" name="detail" class="input-block-level">
+									<input type="text" name="email" id="email" class="input-block-level" data-toggle="tooltip" data-original-title="email不能为空" data-validate>
 								</div>
 							</div>
 
 						</div>
 					</form>
 				</div>
-			
+
+
+				<form id="editForm" name="user" action="${webRoot}/user" method="POST" enctype="multipart/form-data" class="hide">
+					<input type="hidden" name="id">
+					<input type="hidden" name="image">
+					<input type="file" id="edit-file-upload" name="file" class="hide">
+
+					<div class="edit">
+						<div class="row-fluid">
+							<div class="span5">
+								<div class="control-group control-group-small">
+									<label for="" class="control-label">用户名</label>
+									<div class="controls"><input type="text" name="name" class="input-block-level" value="" data-toggle="tooltip" data-original-title="用户名不能为空" data-validate></div>
+								</div>
+							</div>
+							<div class="span2"></div>
+							<div class="span5">
+								<div class="control-group control-group-small">
+									<label for="" class="control-label">密码</label>
+									<div class="controls"><input type="text" name="password" class="input-block-level" value="" data-toggle="tooltip" data-original-title="密码不能为空" data-validate></div>
+								</div>
+							</div>
+						</div>
+						<div class="control-group control-group-small">
+							<label for="" class="control-label">email</label>
+							<div class="controls">
+								<input type="text" name="email" class="input-block-level" value="" data-toggle="tooltip" data-original-title="email不能为空" data-validate>
+							</div>
+						</div>
+					</div>
+				</form>
+
 			</div>
 		</div><!--/ end of container -->
-
-		
 
 
 		<script type="text/javascript" src="${webRoot}/static/assert/js/jquery-1.8.0.js"></script>
 		<script type="text/javascript" src="${webRoot}/static/assert/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="${webRoot}/static/assert/js/jquery.bootstrap.extension.js"></script>
+		<script type="text/javascript" src="${webRoot}/static/assert/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webRoot}/static/assert/js/util.js"></script>
 		<script type="text/javascript">
 
-			jQuery(function ($) {
+			var webRoot = '${webRoot}', 
 
-				$(".img-wapper").hover(function () {
-					$(this).siblings(".img-tips").removeClass("hide");
-				}, function () {
-					$(this).siblings(".img-tips").addClass("hide");
-				});
+				Init = (function($) {
 
-
-				$("#btn_insert").toggleButton(insertBtnClick);
-
-				$("#btn_edit").toggleButton(function (checked) {
-					showRowEditBtn(checked, "icon2-edit");
-				});
 				
-				$("#btn_delete").toggleButton(function(checked) {
-					showRowEditBtn(checked, "icon2-remove");
-				});
-				
-				$(window).bind("resize", resetHeight);
-			});
+				return {
+					//main
+					run: function () {
+						for(var fn in Init) {
+							if(fn === "run" || fn.startsWith('_')) continue;
+							Init[fn].call(window);
+						}
+					}, 
 
+					btnEvent: function () {
+						$("#btn_insert").toggleButton(insertBtnClick);
 
-			/**
-			 * single toggle button click event
-			 * @param  {string}   id       
-			 * @param  {Function} callback 
-			 */
-			function toggle(id, callback) {
-				$("#"+id).click(function () {
-					var $this = $(this);
-					setTimeout(function() {
-						var checked = $this.hasClass("active");
-						callback(checked);
-					}, 0);
-				});
-			}
+						$("#btn_edit").toggleButton(function (checked) {
+							showRowEditBtn(checked, "icon2-edit");
+						});
+						
+						$("#btn_delete").toggleButton(function(checked) {
+							showRowEditBtn(checked, "icon2-remove");
+						});
+
+					},
+
+					imageUpload: function () {
+						$(".img-wapper").hover(function () {
+							$(this).siblings(".img-tips").removeClass("hide");
+						}, function () {
+							$(this).siblings(".img-tips").addClass("hide");
+						})
+						.click(function() {
+							$(this).siblings("input[type='file']").click();
+						});
+					}, 
+
+					imagePreview: function () {
+						imagePreview($("#file-upload"), $("#image-preview"));
+
+						// when edit
+						$("#edit-file-upload").change(function() {
+							var img = this.files[0], 
+								reader = new FileReader(), 
+								userId = $(this).data("userId");
+							
+							reader.onload = function(evt) {
+								$("#img_" + userId).attr("src", evt.target.result);
+							}
+							reader.readAsDataURL(img);
+						});
+					}, 
+
+					resizeEvt: function () {
+						$(window).bind("resize", resetHeight);
+					}, 
+
+					validate: function () {
+						$.validation({
+							root: $("#userForm")
+						}).init();
+					}, 
+
+					submit: function () {
+
+						// insert
+						$("#userForm").submit(function () {
+							var validated = $.validation({root: $("#userForm") }).check();
+							console.log(validated);
+							if(validated) {
+								var options = {
+									success: function (responseText, statusText, xhr, $form) {
+										var data = responseText, 
+											form = $form.get(0), 
+											userName = form.name.value, 
+											email = form.email.value;
+										var user = {
+											"name": userName, 
+											"email": email, 
+											"image": data.image, 
+											"id": data.id
+										};
+										appendToList(user);
+									}
+								};
+								$(this).ajaxSubmit(options);
+							}
+							return false;
+						});
+
+						// update
+						$("#editForm").submit(function() {
+
+							var validated = $.validation({
+								root: $("#editForm")
+							}).check();
+							
+							if(validated) {
+								var userId = $("input[name='id']", this).val(), 
+									options = {
+										type: "POST", 
+										url: webRoot+"/user/" + userId, 
+										success: function(responseText, statusText, xhr, $form) {
+											saveItemCallback(userId, $form);
+										}
+									};
+								$(this).ajaxSubmit(options);
+							}
+
+							return false;
+						});
+					}, 
+
+					// edit and delete operate btn
+					operateEvent: function() {
+						$(document).on("click", "#userList .btns i", function() {
+							var $this = $(this), 
+								userId = $this.attr("value");
+							if($this.hasClass("icon2-remove")) {
+								deleteItem(userId);
+							} else if($this.hasClass("icon2-edit")) {
+								editItem(userId);
+							} else if($this.hasClass("icon2-ok")) {
+								saveItem(userId);
+							} else {
+								throw "btns的样式必须是icon2-remove, icon2-edit, icon2-ok之一";
+							}
+						});
+					}, 
+					
+					// event for edit/update record dynamic
+					dynamicUpdateEvent: function() {
+						$("#editForm").on("keypress", "input", function(e) {
+							var keycode = e.which;
+							if(keycode == 13 || keycode == 108) { // Enter
+								saveItem($(this).attr("orderId"));
+							}
+						});
+					} 
+				};
+
+			})(jQuery);
+
 
 			function insertBtnClick (checked) {
 				var $addPanel = $("#add_panel"), 
-					$groupList = $("#groupList"), 
+					$userList = $("#userList"), 
 					winHeight = $(window).height();
 				if(checked) {
-					$groupList.height(winHeight - 200).addClass("overflow");
+					$userList.height(winHeight - 200).addClass("overflow");
 					$addPanel.removeClass("hide");
 				} else {
-					$groupList.height(winHeight).removeClass("overflow");
+					$userList.height(winHeight).removeClass("overflow");
 					$addPanel.addClass("hide");
 				}
 			}
@@ -237,19 +295,126 @@
 			function resetHeight () {
 				var insertChecked = $("#btn_insert").hasClass("active");
 				if(insertChecked) {
-					$("#groupList").height($(window).height() - 200);
+					$("#userList").height($(window).height() - 200);
 				}
 			}
 
 			function showRowEditBtn(checked, className) {
-				console.log(checked);
-				var $btns = $("#groupList .btns");
+				var $btns = $("#userList .btns");
 				if(checked) {
 					$btns.removeClass("hide").children("i").removeClass().addClass(className);
 				} else {
 					$btns.addClass("hide");
 				}
 			}
+
+			function imgValid() {
+				return !!$("#file-upload").get(0).files[0];
+			}
+
+			/**
+			 */
+			function appendToList(user) {
+				var $firstItem = $("#userList > ul > li").eq(0), 
+					$newNode = $firstItem.clone();
+				$firstItem.before($newNode);
+				$newNode.attr("id", "item_" + user.id);
+				$("img", $newNode).attr("src", webRoot+"/"+user.image);
+				$(".header", $newNode).html(user.name);
+				$(".detail", $newNode).html(user.email);
+				$(".btns i", $newNode).attr("value", user.id);
+			}
+
+
+			function deleteItem(userId) {
+				var url = webRoot+"/user/" + userId;
+				$.ajax({
+					url: url, 
+					type: "delete"
+				})
+				.done(function() {
+					$("#item_"+userId).animate({
+						opacity: 0, 
+						height: 0
+					}, 1000, function() {
+						$(this).remove();
+					});
+				})
+				.fail(function(jqXHR) {
+					alert("删除失败. " + jqXHR.responseText);
+				});
+			}
+			
+			function editItem(userId) {
+				changeMode(userId, "edit");
+				fillEditForm(userId);
+
+				$.validation({
+					root: $("#editForm")
+				}).init();
+			}
+			
+			function saveItem(userId) {
+				$("#editForm").submit();
+			}
+
+			function saveItemCallback(userId, $form) {
+				changeMode(userId, "view");
+
+				var $item = $("#item_" + userId), 
+					editForm = $form.get(0);
+				$(".text .header", $item).html(editForm.name.value);
+				$(".text .detail", $item).html(editForm.email.value);
+			}
+
+			/**
+			 * change mode
+			 *
+			 * @param mode edit | view
+			 */
+			function changeMode(userId, mode) {
+
+				var $item = $("#item_" + userId), 
+					$btn = $(".btns i", $item), 
+					$pic = $(".pic", $item);
+
+				if(mode === "edit") {
+					$btn.removeClass().addClass("icon2-ok");
+					$pic.addClass("pointer").on("click", function() {
+						$("#edit-file-upload").data("userId", userId).click();
+					});
+					$(".text .view", $item).addClass("hide");
+					$(".text", $item).append($("#editForm").removeClass("hide"));
+				}
+				else if(mode === "view") {
+					$btn.removeClass().addClass("icon2-edit");
+					$pic.removeClass("pointer").off("click");
+					$(".text .view", $item).removeClass("hide");
+					$("#editForm").addClass("hide");
+				}
+				else {
+					throw "argument mode must be edit or view.";
+				}
+			}
+
+			function fillEditForm(userId) {
+				var $item = $("#item_" + userId), 
+					editForm = $("#editForm").get(0), 
+					url = webRoot + "/user/" + userId;
+				$.getJSON(url).done(function(user) {
+					editForm.id.value = user.id;
+					editForm.name.value = user.name;
+					editForm.password.value = user.password;
+					editForm.email.value = user.email;
+					editForm.image.value = user.image;
+				});
+			}
+
+
+			jQuery(function ($) {
+
+				Init.run();
+			});
 
 		</script>
 	</body>

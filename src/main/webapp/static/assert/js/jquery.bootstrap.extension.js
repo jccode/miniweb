@@ -101,8 +101,8 @@
 		constructor: Validation, 
 
 		init: function () {
-			var $validate = $(validate_selector);
-			$validate.tooltip({
+			this.els = $(validate_selector, this.options["root"]);
+			this.els.tooltip({
 				trigger: "manual"
 			})
 			.on("validate", function() {
@@ -110,13 +110,13 @@
 			});
 
 			if(this.options.onfocus) {
-				$validate.focus(function() {
+				this.els.focus(function() {
 					_doValidate(this);
 				});
 			}
 
 			if(this.options.onblur) {
-				$validate.blur(function() {
+				this.els.blur(function() {
 					_doValidate(this);
 				});
 			};
@@ -127,7 +127,7 @@
 		check: function() {
 			// $(validate_selector).trigger("validate");
 			var pass = true;
-			$(validate_selector).each(function (idx, el) {
+			this.els.each(function (idx, el) {
 				if(!_doValidate(el)) pass = false;
 			});
 			return pass;
@@ -179,16 +179,18 @@
 	 * @param  {object} options 
 	 */
 	$.validation = function (options) {
-		var $doc = $(document), 
-			instance = $doc.data('validation');
+		var root = options && options["root"] || document, 
+			$root = $(root), 
+			instance = $root.data('validation');
 		// singleton
-		if(!instance) $doc.data('validation', (instance = new Validation(options)));
+		if(!instance) $root.data('validation', (instance = new Validation(options)));
 		return instance;
 	};
 
 	$.validation.defaults = {
 		onfocus: false, 
-		onblur: true
+		onblur: true, 
+		root: document
 	};
 
 	$.validation.Constructor = Validation;

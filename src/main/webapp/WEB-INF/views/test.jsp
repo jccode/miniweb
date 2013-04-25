@@ -12,6 +12,17 @@
 				/*padding: 50px 0px;*/
 				/*background-color: #f5f5f5;*/
 			}
+			#content {
+				list-style: none outside none;
+			}
+			#content li {
+				padding-right: 20px;
+				height: 30px;
+				line-height: 30px;
+			}
+			.right {
+				float: right;
+			}
 		</style>
 	</head>
 	<body>
@@ -25,9 +36,10 @@
 	    </div>
 
 		<div class="row-fluid container-fixed">
-			<div class="span12">
-				<p>findUsers: <input type="button" class="btn" id="btn-findUsers" value="findUsers"> </p>
-			</div>
+			<ul id="content">
+				<li>findUsers. <input type="button" class="btn right" id="btn-findUsers" value="findUsers"></li>
+				<li>findOneUser. <input type="text" id="txt-findOneUser" placeholder="userId"/> <input type="button" class="btn right" id="btn-findOneUser" value="findOneUser"></li>
+			</ul>
 		</div>
 		
 		<script type="text/javascript" src="${webRoot}/static/assert/js/jquery-1.8.0.js"></script>
@@ -91,15 +103,21 @@
 			jQuery(function ($) {
 
 				$("#btn-findUsers").click(function () {
-					$.getJSON(webRoot + "/user").done(function (json) {
-						Msg.success("<strong>Well done!</strong> data: " + JSON.stringify(json));
-					})
-					.fail(function (xhr) {
-						Msg.fail("<strong>Fail!</strong> error: " + xhr.responseText);
-					});
+					$.getJSON(webRoot + "/user").done(showJsonCallback).fail(failCallback);
+				});
+				$("#btn-findOneUser").click(function () {
+					$.getJSON(webRoot + "/user/" + $("#txt-findOneUser").val()).done(showJsonCallback).fail(failCallback);
 				});
 				
 			});
+
+			function showJsonCallback(json) {
+				Msg.success("<strong>Well done!</strong> data: " + JSON.stringify(json));
+			}
+
+			function failCallback(xhr) {
+				Msg.fail("<strong>Fail!</strong> error: " + xhr.responseText);
+			}
 
 		</script>
 	</body>

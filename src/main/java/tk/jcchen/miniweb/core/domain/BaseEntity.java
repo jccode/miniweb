@@ -1,4 +1,4 @@
-package tk.jcchen.miniweb.example.user.domain;
+package tk.jcchen.miniweb.core.domain;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,4 +11,12 @@ public class BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
+	
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }

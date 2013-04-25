@@ -1,6 +1,9 @@
 package tk.jcchen.miniweb.example.user.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,13 +31,16 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 	
-	/* (non-Javadoc)
-	 * @see tk.jcchen.miniweb.example.user.service.UserService#findUserById(int)
-	 */
 	@Override
 	@Transactional(readOnly = true)
-	public User findUserById(int id) {
-		return userRepository.findById(id);
+	public void deleteUser(int id) {
+		userRepository.delete(id);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public User findOneUser(int id) {
+		return userRepository.findOne(id);
 	}
 	
 	/* (non-Javadoc)
@@ -43,6 +49,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(readOnly = true)
 	public Collection<User> findUsers() {
-		return userRepository.findAll();
+		List<User> list = new ArrayList<User>();
+		Iterable<User> iterable = userRepository.findAll();
+		Iterator<User> iter = iterable.iterator();
+		while(iter.hasNext()) {
+			list.add(iter.next());
+		}
+		return list;
 	}
 }
