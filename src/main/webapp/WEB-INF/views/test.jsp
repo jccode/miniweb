@@ -38,6 +38,7 @@
 		<div class="row-fluid container-fixed">
 			<ul id="content">
 				<li>findUsers. <input type="button" class="btn right" id="btn-findUsers" value="findUsers"></li>
+				<li>findUsersForPage. <input type="text" id="txt-pageNo" placeholder="pageNo"><input type="text"  id="txt-pageSize" placeholder="pageSize"> <input type="button" class="btn right" id="btn-findUsersForPage" value="findUsersForPage"></li>
 				<li>findOneUser. <input type="text" id="txt-findOneUser" placeholder="userId"/> <input type="button" class="btn right" id="btn-findOneUser" value="findOneUser"></li>
 			</ul>
 		</div>
@@ -104,6 +105,10 @@
 
 				$("#btn-findUsers").click(function () {
 					$.getJSON(webRoot + "/user").done(showJsonCallback).fail(failCallback);
+				});
+				$("#btn-findUsersForPage").click(function () {
+					var url = webRoot + "/user?n=" + $("#txt-pageNo").val() + "&s=" + $("#txt-pageSize").val();
+					$.getJSON(url).done(showJsonCallback).fail(failCallback);
 				});
 				$("#btn-findOneUser").click(function () {
 					$.getJSON(webRoot + "/user/" + $("#txt-findOneUser").val()).done(showJsonCallback).fail(failCallback);

@@ -1,10 +1,13 @@
 package tk.jcchen.miniweb.example.user.web;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,9 +42,16 @@ public class UserController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	private static final int PAGE_SIZE = 6;
+	
 	@Autowired
 	private UserService userService;
 	
+	/**
+	 * to user list. not pagination
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/user")
 	public String toUserList(Model model) {
 		Collection<User> users = userService.findUsers();
@@ -50,14 +60,47 @@ public class UserController {
 	}
 	
 	/**
-	 * get user list. for ajax.
+	 * to user list. with pagination.
+	 * @param pageNo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/user", params="n")
+	public String toUserList(@RequestParam("n") int pageNo, Model model) {
+		if(pageNo < 1) pageNo = 1;
+		Page<User> page = userService.findUsers(new PageRequest(pageNo-1, PAGE_SIZE)); //前台的分页是从1开始的.
+		
+		model.addAttribute("pageSize", PAGE_SIZE);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("pageCount", page.getTotalPages());
+		model.addAttribute("users", page.getContent());
+		return "user/user";
+	}
+	
+	/**
+	 * get user list. for ajax.<br>
+	 * mapping: /user + application/json
 	 * 
 	 * @return
 	 */
 	@RequestMapping(value="/user", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<User> findUsers() {
-		Collection<User> users = userService.findUsers();
+	public @ResponseBody List<User> findUsers() {
+		List<User> users = userService.findUsers();
 		return users;
+	}
+	
+	/**
+	 * Get user list for paging.<br>
+	 * mapping: /user?n=&s= + application/json
+	 * 
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping(value="/user",  method=RequestMethod.GET, params={"n","s"}, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<User> findUsers(@RequestParam("n") int pageNo, @RequestParam("s") int pageSize) {
+		Page<User> page = userService.findUsers(new PageRequest(pageNo, pageSize));
+		return page.getContent();
 	}
 	
 	@RequestMapping(value="/user/{id}", method=RequestMethod.GET)

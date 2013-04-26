@@ -74,7 +74,7 @@
 					<div class="sidebar">
 						<ul class="nav nav-list">
 							<li class="nav-header">系统管理</li>
-							<li class="active"><a href="${webRoot}/user">人员管理</a></li>
+							<li class="active"><a href="${webRoot}/user?n=0">人员管理</a></li>
 							<li class=""><a href="#">菜单管理</a></li>
 							<li class=""><a href="${webRoot}/test">测试</a></li>
 							<li class="nav-header">订单管理</li>

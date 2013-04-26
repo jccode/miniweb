@@ -54,6 +54,14 @@
 						</c:forEach>
 					</ul>
 				</div>
+
+				<!-- pagination -->
+				<div id="page"></div>
+				<input type="hidden" id="pageNo" value="${pageNo}">
+				<input type="hidden" id="pageSize" value="${pageSize}">
+				<input type="hidden" id="pageCount" value="${pageCount}">
+
+
 				<div id="add_panel" class="panel-bottom hide">
 					<form id="userForm" name="user" action="${webRoot}/user" class="group-list" method="POST" enctype="multipart/form-data">
 						<div class="pic">
@@ -131,6 +139,7 @@
 		<script type="text/javascript" src="${webRoot}/static/assert/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="${webRoot}/static/assert/js/jquery.bootstrap.extension.js"></script>
 		<script type="text/javascript" src="${webRoot}/static/assert/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${webRoot}/static/assert/js/jquery.pagination.js"></script>
 		<script type="text/javascript" src="${webRoot}/static/assert/js/util.js"></script>
 		<script type="text/javascript">
 
@@ -273,7 +282,20 @@
 								saveItem($(this).attr("orderId"));
 							}
 						});
-					} 
+					}, 
+
+					pagination: function() {
+						$("#page").pagination({
+							className: "pagination-right", 
+							page: $("#pageNo").val(), 
+							count: $("#pageCount").val(), 
+							callback: function (current_page, new_page) {
+								$("#pageNo").val(new_page);
+								window.location.href = webRoot + "/user?n="+new_page;
+							}, 
+							refresh: false
+						});
+					}
 				};
 
 			})(jQuery);
@@ -282,12 +304,18 @@
 			function insertBtnClick (checked) {
 				var $addPanel = $("#add_panel"), 
 					$userList = $("#userList"), 
-					winHeight = $(window).height();
+					listHeight = $userList.height(), 
+					winHeight = $(window).height(), 
+					delta = 240;
 				if(checked) {
-					$userList.height(winHeight - 200).addClass("overflow");
+					$userList.data("height", listHeight);
+
+					if(listHeight + delta > winHeight) {
+						$userList.height(winHeight - delta).addClass("overflow");
+					}
 					$addPanel.removeClass("hide");
 				} else {
-					$userList.height(winHeight).removeClass("overflow");
+					$userList.height($userList.data("height")).removeClass("overflow");
 					$addPanel.addClass("hide");
 				}
 			}
@@ -295,7 +323,7 @@
 			function resetHeight () {
 				var insertChecked = $("#btn_insert").hasClass("active");
 				if(insertChecked) {
-					$("#userList").height($(window).height() - 200);
+					$("#userList").height($(window).height() - 240);
 				}
 			}
 

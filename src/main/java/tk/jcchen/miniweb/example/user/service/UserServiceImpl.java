@@ -1,11 +1,10 @@
 package tk.jcchen.miniweb.example.user.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,13 +47,20 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<User> findUsers() {
-		List<User> list = new ArrayList<User>();
-		Iterable<User> iterable = userRepository.findAll();
-		Iterator<User> iter = iterable.iterator();
-		while(iter.hasNext()) {
-			list.add(iter.next());
-		}
-		return list;
+	public List<User> findUsers() {
+//		List<User> list = new ArrayList<User>();
+//		Iterable<User> iterable = userRepository.findAll();
+//		Iterator<User> iter = iterable.iterator();
+//		while(iter.hasNext()) {
+//			list.add(iter.next());
+//		}
+//		return list;
+		return userRepository.findAll();
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Page<User> findUsers(Pageable pageable) {
+		return userRepository.findAll(pageable);
 	}
 }
