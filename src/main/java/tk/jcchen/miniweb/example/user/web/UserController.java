@@ -120,9 +120,6 @@ public class UserController {
 	@RequestMapping(value="/user/{id}", method={RequestMethod.POST, RequestMethod.PUT})
 	public @ResponseBody User updateUser(@ModelAttribute User user, @PathVariable int id, 
 			@RequestParam(required=false) MultipartFile file, BindingResult result) throws Exception {
-		logger.info("------------ update user -----------");
-		logger.info(user.toString());
-		
 		if(file != null) {
 			String image = FileuploadUtils.saveImage(file);
 			user.setImage(image);

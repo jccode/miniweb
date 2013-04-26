@@ -38,13 +38,13 @@
 		<div class="row-fluid container-fixed">
 			<ul id="content">
 				<li>findUsers. <input type="button" class="btn right" id="btn-findUsers" value="findUsers"></li>
-				<li>findUsersForPage. <input type="text" id="txt-pageNo" placeholder="pageNo"><input type="text"  id="txt-pageSize" placeholder="pageSize"> <input type="button" class="btn right" id="btn-findUsersForPage" value="findUsersForPage"></li>
+				<li>findUsersForPage. <input type="text" class="input-small" id="txt-pageNo" placeholder="pageNo"> &nbsp; <input type="text"  class="input-small" id="txt-pageSize" placeholder="pageSize"> <input type="button" class="btn right" id="btn-findUsersForPage" value="findUsersForPage"></li>
 				<li>findOneUser. <input type="text" id="txt-findOneUser" placeholder="userId"/> <input type="button" class="btn right" id="btn-findOneUser" value="findOneUser"></li>
 			</ul>
 		</div>
 		
-		<script type="text/javascript" src="${webRoot}/static/assert/js/jquery-1.8.0.js"></script>
-		<script type="text/javascript" src="${webRoot}/static/assert/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="${webRoot}/static/assert/lib/jquery-1.8.0.js"></script>
+		<script type="text/javascript" src="${webRoot}/static/assert/lib/bootstrap.min.js"></script>
 		<script type="text/javascript">
 
 			// ------- Msg Notification ---------

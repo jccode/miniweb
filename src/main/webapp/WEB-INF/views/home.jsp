@@ -90,8 +90,9 @@
 		</div>
 
 	
-		<!-- <script src="../seajs/sea.js" data-config="../js/config" data-main="../js/main"></script> -->
-
+		<script src="${webRoot }/static/assert/seajs/sea.js" data-config="${webRoot }/static/assert/js/config" data-main="${webRoot }/static/assert/js/home"></script>
+		
+		<%-- 
 		<script type="text/javascript" src="${webRoot}/static/assert/js/jquery-1.8.0.js"></script>
 		<script type="text/javascript" src="${webRoot}/static/assert/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
@@ -124,5 +125,6 @@
 			}
 
 		</script>
+		--%>
 	</body>
 </html>
