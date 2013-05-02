@@ -5,10 +5,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class LoginForm {
 
-	@NotEmpty
+	@NotEmpty(message="用户名不能为空")
 	private String username;
 
-	@NotEmpty
+	@NotEmpty(message="密码不能为空")
 	private String password;
 
 	private boolean rememberMe;

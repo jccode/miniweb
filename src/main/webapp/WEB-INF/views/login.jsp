@@ -18,14 +18,34 @@
 	</head>
 	<body>
 		<div class="container">
-			<form id="loginForm" name="loginForm" action="${webRoot}/login" method="post" class="form-sign" >
+			
+			<form:form modelAttribute="loginForm" cssClass="form-sign">
 				<h2>mini web login</h2>
-				<spring:hasBindErrors name="*">
+				<spring:hasBindErrors name="loginForm">
 					<div class="alert alert-error">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
 						<form:errors path="*" element="div"></form:errors>
 					</div>
 				</spring:hasBindErrors>
+				<form:input path="username" cssClass="input-block-level" placeholder="用户名"/>
+				<form:input path="password" cssClass="input-block-level" placeholder="密码"/>
+				<div class="form-inline">
+					<label class="checkbox pull-right checkbox-remember" >
+						<form:checkbox path="rememberMe"/>记住我
+					</label>
+					<input type="submit" id="login" class="btn btn-primary btn-large btn-login" value="登&nbsp;录">
+				</div>
+			</form:form>
+			
+			<%-- 
+			<form id="loginForm" name="loginForm" action="${webRoot}/login" method="post" class="form-sign" >
+				<h2>mini web login</h2>
+				<spring:hasBindErrors name="*">
+				</spring:hasBindErrors>
+					<div class="alert alert-error">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<form:errors path="*" element="div"></form:errors>
+					</div>
 				<input type="text" name="username" class="input-block-level" placeholder="用户名" >
 				<input type="password" name="password" class="input-block-level" placeholder="密码" >
 				<div class="form-inline">
@@ -35,6 +55,7 @@
 					<input type="submit" id="login" class="btn btn-primary btn-large btn-login" value="登&nbsp;录">
 				</div>
 			</form>
+			--%>
 		</div>
 		
 		<script src="${webRoot }/static/assert/seajs/sea.js" data-config="${webRoot }/static/assert/js/config" data-main="${webRoot }/static/assert/js/login"></script>

@@ -17,26 +17,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LoginController {
 
 	@RequestMapping("/login")
-	public String toLogin() {
+	public String toLogin(LoginForm loginForm, Model model) {
 		return "login";
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(@Valid LoginForm loginForm, Model model, BindingResult errors ) {
+	public String login(@Valid LoginForm loginForm, BindingResult errors, Model model ) {
 		if(errors.hasErrors()) {
 			System.out.println(errors);
-			return toLogin();
+			return toLogin(loginForm, model);
 		}
 		UsernamePasswordToken token = new UsernamePasswordToken(loginForm.getUsername(), loginForm.getPassword(), loginForm.isRememberMe());
 		
 		try {
 			SecurityUtils.getSubject().login(token);
 		} catch (AuthenticationException e) {
-			errors.reject( "error.login.generic", "Invalid username or password.  Please try again." );
+			errors.reject( "error.login.generic", "用户名或密码不正确." );
 		}
 		
 		if(errors.hasErrors()) {
-			return toLogin();
+			return toLogin(loginForm, model);
 		}
 		return "redirect:/";
 	}
@@ -48,7 +48,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResultJson loginForAjax(@Valid LoginForm loginForm, Model model, BindingResult errors ) {
+	public @ResponseBody ResultJson loginForAjax(@Valid LoginForm loginForm, BindingResult errors, Model model ) {
 		ResultJson ret = new ResultJson();
 		if(errors.hasErrors()) {
 			ret.setResult(false);
