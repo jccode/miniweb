@@ -2,6 +2,7 @@ package tk.jcchen.miniweb.login.web;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+
 public class LoginForm {
 
 	@NotEmpty

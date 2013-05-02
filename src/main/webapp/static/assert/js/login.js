@@ -6,6 +6,7 @@ define(function (require, exports, module) {
 	var $ = require('jquery'), 
 		util = require('util'), 
 		webRoot = util.webRoot;
+	require('bootstrap');
 	
 	var Init = {
 		//main
@@ -16,7 +17,7 @@ define(function (require, exports, module) {
 			}
 		}, 
 		
-		formSubmit: function() {
+		_formSubmit: function() {
 			$("#loginForm").submit(function() {
 				var $this = $(this);
 				$.post($this.attr("action"), $this.serialize()).done(function(data) {
