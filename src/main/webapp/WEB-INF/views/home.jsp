@@ -47,7 +47,7 @@
 										</p>
 										<div>
 											<input type="button" class="btn" value="查看个人资料">
-											<input type="button" class="btn pull-right" value="退出登录">
+											<input type="button" id="logout" class="btn pull-right" value="退出登录">
 										</div>
 									</div>
 								</div><!--/ user-info -->
@@ -89,42 +89,6 @@
 			</div>
 		</div>
 
-	
 		<script src="${webRoot }/static/assert/seajs/sea.js" data-config="${webRoot }/static/assert/js/config" data-main="${webRoot }/static/assert/js/home"></script>
-		
-		<%-- 
-		<script type="text/javascript" src="${webRoot}/static/assert/js/jquery-1.8.0.js"></script>
-		<script type="text/javascript" src="${webRoot}/static/assert/js/bootstrap.min.js"></script>
-		<script type="text/javascript">
-
-			jQuery(function ($) {
-
-				$(".sidebar .nav > li").click(function() {
-					var $this = $(this);
-					$this.addClass("active").siblings().removeClass("active");
-					setFrameURL($this.children("a").attr("href"));
-					return false;
-				})
-
-				// 选中第一个.
-				.eq(1).click();
-
-				initHeight();
-
-				$(window).bind("resize", initHeight);
-
-			});
-
-			function setFrameURL (url) {
-				$("#mainFrame").attr("src", url);
-			}
-
-			function initHeight () {
-				var height = $(window).height() - $(".navbar-fixed-top").outerHeight() - 60;
-				$("#mainFrame").attr("height", height);
-			}
-
-		</script>
-		--%>
 	</body>
 </html>

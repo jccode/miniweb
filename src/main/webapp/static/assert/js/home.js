@@ -1,7 +1,9 @@
 
 define(function (require, exports, module) {
 	
-	var $ = require('jquery');
+	var $ = require('jquery'), 
+		util = require('util'), 
+		webRoot = util.webRoot;
 	require('bootstrap');
 	
 	jQuery(function ($) {
@@ -19,6 +21,8 @@ define(function (require, exports, module) {
 		initHeight();
 
 		$(window).bind("resize", initHeight);
+		
+		$("#logout").on("click", logout);
 
 	});
 
@@ -29,5 +33,13 @@ define(function (require, exports, module) {
 	function initHeight () {
 		var height = $(window).height() - $(".navbar-fixed-top").outerHeight() - 60;
 		$("#mainFrame").attr("height", height);
+	}
+	
+	function logout() {
+		var url = webRoot + "/logout";
+//		$.post(url).done(function() {
+//			alert("logout");
+//		});
+		window.location.href = url;
 	}
 });
